@@ -34,6 +34,9 @@ INSTALLED_APPS = [
     # Project apps
     'vizzy', 
 
+    # Third party apps.
+    'django_bootstrap5',
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
