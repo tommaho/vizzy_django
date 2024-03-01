@@ -9,3 +9,7 @@ def index(request):
 def datasets(request):
     """Datasets page"""
     return render(request, 'vizzy/datasets.html')
+
+def visualize(request):
+    """Vizualization page"""
+    return render(request, 'vizzy/visualize.html')

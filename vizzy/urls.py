@@ -11,6 +11,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     # Datasets
     path('datasets/', views.datasets, name='datasets'),
+    # Visualize
+     path('visualize/', views.visualize, name='visualize'),
 
 ]
 
