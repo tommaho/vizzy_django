@@ -1,0 +1,23 @@
+{% extends 'vizzy/base.html' %}
+
+{% block content %}
+<h1>Create New Dataset</h1>
+
+<form action="{% url 'vizzy:create' %}" method='post' enctype="multipart/form-data">
+         {% csrf_token %}
+         {{ form.as_div }}
+         <p></p>
+        <button name="submit">Create New Dataset</button>
+      </form>
+
+      {% if errors %}
+      <ul>
+          {% for field, error_list in errors.items %}
+              {% for error in error_list %}
+                  <li>{{ field }}: {{ error }}</li>
+              {% endfor %}
+          {% endfor %}
+      </ul>
+  {% endif %}
+
+{% endblock content %}

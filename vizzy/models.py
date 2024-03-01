@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 class DataSet(models.Model):
@@ -11,7 +12,7 @@ class DataSet(models.Model):
     row_count = models.BigIntegerField()
     data = models.JSONField()
     date_added = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    # owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
     def __str__(self):

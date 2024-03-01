@@ -26,9 +26,14 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'vizzy:datasets' %}">
-                            Data Sets</a>
+                        <a class="nav-link" href="{% url 'vizzy:create' %}">
+                            Create</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'vizzy:datasets' %}">
+                            Data</a>
+                    </li>
+                    <li class="nav-item">
                     <a class="nav-link" href="{% url 'vizzy:visualize' %}">
                         Visualize</a></li>
                 </ul> <!-- End of links on left side of navbar -->
