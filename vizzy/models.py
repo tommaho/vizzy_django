@@ -8,7 +8,7 @@ class DataSet(models.Model):
     """Container for uploaded and converted data files."""
     name = models.CharField(max_length=200)
     column_count = models.IntegerField()
-    columns = models.IntegerField()
+    columns = models.TextField()
     row_count = models.BigIntegerField()
     data = models.JSONField()
     date_added = models.DateTimeField(auto_now_add=True)

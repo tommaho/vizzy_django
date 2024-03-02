@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import DataSetForm
 from .models import DataSet
 import pandas as pd
+import bleach
 
 # Create your views here.
 
@@ -27,10 +28,16 @@ def create(request):
             file = request.FILES['file_upload']
             dataframe = pd.read_csv(file, encoding='utf-8')
 
+            # this will be a performance killer for large datasets
+            dataframe = dataframe.map(lambda x: bleach.clean(x) if isinstance(x, str) else x)
+
+            
+            column_names = dataframe.columns.tolist()
+
             DataSet.objects.create(
-                name = "test", # form.file_name,
+                name = form.cleaned_data['file_name'],
                 column_count = len(dataframe.columns),
-                columns = ', '.join(dataframe.columns),
+                columns = column_names,
                 row_count = len(dataframe),
                 data = dataframe.to_json(),
                 # owner = "tommaho"
