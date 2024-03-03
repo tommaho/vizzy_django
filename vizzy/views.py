@@ -72,6 +72,6 @@ def visualize(request, dataset_id):
                                        , classes='table table-bordered table-striped'
                                        , table_id='data_table')
     
-    context = {'dataset': dataset, 'datatable': datatable}
+    context = {'dataset_name': dataset.name, 'datatable': datatable}
 
     return render(request, 'vizzy/visualize.html', context)
