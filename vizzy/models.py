@@ -10,7 +10,7 @@ class DataSet(models.Model):
     column_count = models.IntegerField()
     columns = models.TextField()
     row_count = models.BigIntegerField()
-    data = models.JSONField()
+    data = models.BinaryField()
     date_added = models.DateTimeField(auto_now_add=True)
     # owner = models.ForeignKey(User, on_delete=models.CASCADE)
 

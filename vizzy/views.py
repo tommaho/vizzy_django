@@ -3,6 +3,7 @@ from .forms import DataSetForm
 from .models import DataSet
 import pandas as pd
 import bleach
+import pickle
 
 # Create your views here.
 
@@ -13,7 +14,6 @@ def index(request):
 
 def create(request):
     """Create dataset page"""
-
 
     if request.method != 'POST':
         
@@ -31,7 +31,7 @@ def create(request):
             # this will be a performance killer for large datasets
             dataframe = dataframe.map(lambda x: bleach.clean(x) if isinstance(x, str) else x)
 
-            
+
             column_names = dataframe.columns.tolist()
 
             DataSet.objects.create(
@@ -39,12 +39,12 @@ def create(request):
                 column_count = len(dataframe.columns),
                 columns = column_names,
                 row_count = len(dataframe),
-                data = dataframe.to_json(),
+                data = pickle.dumps(dataframe) # dataframe.to_json(),
                 # owner = "tommaho"
             )
 
 
-            return redirect('vizzy:visualize')
+            return redirect('vizzy:datasets')
         else: 
             errors = form.errors
 
@@ -59,7 +59,9 @@ def create(request):
 
 def datasets(request):
     """Datasets page"""
-    return render(request, 'vizzy/datasets.html')
+    datasets = DataSet.objects.order_by('date_added')
+    context = {'datasets': datasets}
+    return render(request, 'vizzy/datasets.html', context)
 
 def visualize(request):
     """Vizualization page"""
