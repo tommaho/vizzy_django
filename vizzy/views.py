@@ -56,13 +56,22 @@ def create(request):
     return render(request, 'vizzy/create.html', context)
 
 
-
 def datasets(request):
     """Datasets page"""
     datasets = DataSet.objects.order_by('date_added')
     context = {'datasets': datasets}
     return render(request, 'vizzy/datasets.html', context)
 
-def visualize(request):
-    """Vizualization page"""
-    return render(request, 'vizzy/visualize.html')
+
+def visualize(request, dataset_id):
+    """Visualization page"""
+
+    dataset = DataSet.objects.get(id=dataset_id)
+    
+    datatable = pickle.loads(dataset.data).to_html(index=False
+                                       , classes='table table-bordered table-striped'
+                                       , table_id='data_table')
+    
+    context = {'dataset': dataset, 'datatable': datatable}
+
+    return render(request, 'vizzy/visualize.html', context)

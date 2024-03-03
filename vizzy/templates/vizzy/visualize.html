@@ -1,5 +1,9 @@
 {% extends 'vizzy/base.html' %}
 
 {% block content %}
-<h1>Dataset Visualization</h1>
+
+<h1> {{ dataset.name}}</h1>
+
+{{ datatable | safe}}
+
 {% endblock content %}

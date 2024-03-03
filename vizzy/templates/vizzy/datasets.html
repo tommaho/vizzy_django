@@ -19,7 +19,7 @@
         <tbody>
             {% for dataset in datasets %}
             <tr>
-                <td>{{ dataset.name }} </td>
+                <td><a href="{% url 'vizzy:visualize' dataset.id %}">{{ dataset.name }}</a> </td>
                 <td>{{ dataset.date_added }}</td>
                 <td>{{ dataset.columns }}</td>
                 <td>{{dataset.row_count}}</td>
