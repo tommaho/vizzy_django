@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.conf import settings
+
 from .forms import DataSetForm
 from .models import DataSet
 import pandas as pd
@@ -22,10 +25,14 @@ def create(request):
     else: # a submit has occurred
 
         form = DataSetForm(request.POST, request.FILES)
-        
-        if form.is_valid():
+        file = request.FILES['file_upload']   
 
-            file = request.FILES['file_upload']
+       
+
+        if form.is_valid() and file.size < settings.MAX_FILE_SIZE:
+
+
+            
             dataframe = pd.read_csv(file, encoding='utf-8')
 
             # this will be a performance killer for large datasets
@@ -39,16 +46,25 @@ def create(request):
                 column_count = len(dataframe.columns),
                 columns = column_names,
                 row_count = len(dataframe),
-                data = pickle.dumps(dataframe) # dataframe.to_json(),
+                data = pickle.dumps(dataframe)
                 # owner = "tommaho"
             )
 
-
+            messages.add_message(request
+                                 , messages.SUCCESS
+                                 , 'File successfully uploaded.'
+                                 , extra_tags='alert alert-success')
+            
+            
             return redirect('vizzy:datasets')
         else: 
-            errors = form.errors
 
-            return render(request, 'vizzy/create.html', {'form': form, 'errors': errors})
+            messages.add_message(request
+                                 , messages.SUCCESS
+                                 , 'File upload failed. Must be a valid CSV file under 2MB.'
+                                 , extra_tags='alert alert-danger')           
+            
+            form = DataSetForm()   # reset form 
 
         
 
