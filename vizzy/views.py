@@ -74,7 +74,7 @@ def create(request):
 
 def datasets(request):
     """Datasets page"""
-    datasets = DataSet.objects.order_by('date_added')
+    datasets = DataSet.objects.order_by('-date_added')
     context = {'datasets': datasets}
     return render(request, 'vizzy/datasets.html', context)
 
