@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Project apps
     'vizzy', 
+    'accounts',
 
     # Third party apps.
     'django_bootstrap5',
@@ -131,3 +132,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # App configuration settings
 
 MAX_FILE_SIZE = 2 * 1024 * 1024  # 2 MB, django temps to filesystem at >2.5
+
+LOGIN_REDIRECT_URL = 'vizzy:index'
+LOGOUT_REDIRECT_URL = 'vizzy:index'

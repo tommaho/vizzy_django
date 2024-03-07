@@ -27,17 +27,12 @@ def create(request):
         form = DataSetForm(request.POST, request.FILES)
         file = request.FILES['file_upload']   
 
-       
-
         if form.is_valid() and file.size < settings.MAX_FILE_SIZE:
 
-
-            
             dataframe = pd.read_csv(file, encoding='utf-8')
 
             # this will be a performance killer for large datasets
             dataframe = dataframe.map(lambda x: bleach.clean(x) if isinstance(x, str) else x)
-
 
             column_names = dataframe.columns.tolist()
 
