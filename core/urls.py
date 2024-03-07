@@ -22,3 +22,8 @@ urlpatterns = [
     path("accounts/", include('accounts.urls')),
     path ("", include('vizzy.urls')),
 ]
+
+handler404 = 'vizzy.views.err_handler'
+handler500 = 'vizzy.views.err_handler'
+handler403 = 'vizzy.views.err_handler'
+handler400 = 'vizzy.views.err_handler'

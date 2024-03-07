@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
+
 
 from .forms import DataSetForm
 from .models import DataSet
@@ -87,3 +89,7 @@ def visualize(request, dataset_id):
     context = {'dataset_name': dataset.name, 'datatable': datatable}
 
     return render(request, 'vizzy/visualize.html', context)
+
+
+def err_handler(request, e=None):
+    return render(request, 'vizzy/err.html')
