@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 from .forms import DataSetForm
 from .models import DataSet
@@ -14,7 +15,7 @@ def index(request):
     """Home page"""
     return render(request, 'vizzy/index.html')
 
-
+@login_required
 def create(request):
     """Create dataset page"""
 

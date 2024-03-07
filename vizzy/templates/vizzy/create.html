@@ -1,13 +1,12 @@
 {% extends 'vizzy/base.html' %}
-
+{% load django_bootstrap5 %}
 {% block content %}
 <h1>Create New Dataset</h1>
 
 <form action="{% url 'vizzy:create' %}" method='post' enctype="multipart/form-data">
          {% csrf_token %}
-         {{ form.as_div }}
-         <p></p>
-        <button name="submit">Create New Dataset</button>
+         {% bootstrap_form form %}
+         {% bootstrap_button button_type="submit" content="Create Dataset" %}
       </form>
 
       {% if errors %}
