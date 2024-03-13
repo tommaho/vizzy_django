@@ -5,6 +5,7 @@ from .validators import has_correct_mime_type
 from .validators import has_csv_extension
 from .validators import has_valid_encoding
 from .validators import is_well_formed_csv
+from .validators import is_correctly_sized
 
 class DataSetForm(forms.Form):
     file_name = forms.CharField(max_length=100)
@@ -13,6 +14,7 @@ class DataSetForm(forms.Form):
         has_valid_encoding,
         has_correct_mime_type,
         is_well_formed_csv,
+        is_correctly_sized,
     ])
 
     #     

@@ -25,12 +25,12 @@ def create(request):
         
         form = DataSetForm()
 
-    else: # a submit has occurred
+    else:
 
         form = DataSetForm(request.POST, request.FILES)
         file = request.FILES['file_upload']   
 
-        if form.is_valid() and file.size < settings.MAX_FILE_SIZE:
+        if form.is_valid():
 
             dataframe = pd.read_csv(file, encoding='utf-8')
 
@@ -45,7 +45,6 @@ def create(request):
                 columns = column_names,
                 row_count = len(dataframe),
                 data = pickle.dumps(dataframe)
-                # owner = "tommaho"
             )
 
             messages.add_message(request
@@ -56,10 +55,17 @@ def create(request):
             
             return redirect('vizzy:datasets')
         else: 
+             
+            # if not size_ok:
+            #    form.add_error(None, 'File too large.')
 
+
+            errors = form.errors.get('file_upload', None)
+            
+      
             messages.add_message(request
                                  , messages.SUCCESS
-                                 , 'File upload failed. Must be a valid CSV file under 2MB.'
+                                 , f'File upload failed. Must be a valid CSV file under 2MB. <br><br>Errors: {errors}'
                                  , extra_tags='alert alert-danger')           
             
             form = DataSetForm()   # reset form 
